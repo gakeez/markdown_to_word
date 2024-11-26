@@ -1,0 +1,518 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 头部样式 */
+h1 {
+    text-align: center;
+    width: 100%;
+    color: #2c3e50;
+    padding: 2rem 1rem;
+    margin: 0;
+    font-size: 2rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.converter {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    max-width: 1800px;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.editor-container {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    flex: 1;
+    min-height: 0;
+}
+
+/* 编辑器和预览区域样式 */
+.input-section,
+.preview-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+}
+
+h2 {
+    font-size: 1.25rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eee;
+}
+
+textarea {
+    flex: 1;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    resize: none;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 15px;
+    line-height: 1.6;
+    background-color: #fafafa;
+    min-height: 600px;
+}
+
+.preview-content {
+    flex: 1;
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    overflow-y: auto;
+    background-color: #fff;
+    min-height: 600px;
+}
+
+/* 按钮区域样式 */
+.button-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 1rem;
+}
+
+.format-selection {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.format-selection label {
+    color: #2c3e50;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.format-selection select {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: #fff;
+    min-width: 120px;
+}
+
+button {
+    padding: 0.75rem 2rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    min-width: 180px;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+    .converter {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    .editor-container {
+        flex-direction: column;
+    }
+
+    .input-section,
+    .preview-section {
+        width: 100%;
+    }
+
+    textarea,
+    .preview-content {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 576px) {
+    .button-section {
+        flex-direction: column;
+    }
+
+    .format-selection {
+        width: 100%;
+        justify-content: center;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+
+/* 滚动条美化 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+
+/* 保持原有的 Markdown 预览样式和暗色模式支持 */
+/* ... */
+
+.input-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eee;
+}
+
+.input-header h2 {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.file-upload {
+    position: relative;
+    display: inline-block;
+}
+
+.file-input {
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.file-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.file-label:hover {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+
+.file-label svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* 拖放区域样式 */
+.drag-active {
+    background-color: #f0f7ff;
+    border: 2px dashed #4CAF50;
+}
+
+.file-upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.file-hint {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* 错误提示样式 */
+.error-message {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.error-message svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* 工具描述样式 */
+.tool-description {
+    width: 100%;
+    max-width: 1800px;
+    text-align: center;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+/* 文章内容部分样式 */
+.content-section {
+    width: 100%;
+    max-width: 1800px;
+    margin: 3rem auto;
+    padding: 0 2rem;
+}
+
+/* 文章段落样式 */
+.content-section p {
+    text-align: left;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+}
+
+/* 标题样式优化 */
+.content-section h2 {
+    text-align: left;
+    font-size: 2rem;
+    color: #2c3e50;
+    margin: 2.5rem 0 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #eee;
+}
+
+.content-section h3 {
+    text-align: left;
+    font-size: 1.5rem;
+    color: #34495e;
+    margin: 2rem 0 1rem;
+}
+
+/* 列表样式优化 */
+.content-section ul,
+.content-section ol {
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+}
+
+.content-section li {
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+    color: #2c3e50;
+}
+
+/* 特性部分样式 */
+.features-section {
+    width: 100%;
+    max-width: 1800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+    text-align: left;
+}
+
+.feature {
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.feature h3 {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+/* 使用说明部分样式 */
+.how-to-use {
+    width: 100%;
+    max-width: 1800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    text-align: left;
+}
+
+.how-to-use h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.how-to-use ol {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.how-to-use li {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+}
+
+/* FAQ部分样式 */
+.faq-section {
+    width: 100%;
+    max-width: 1800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.faq-item {
+    text-align: left;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.faq-item h3 {
+    text-align: left;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+/* CTA部分样式 */
+.cta-section {
+    width: 100%;
+    max-width: 1800px;
+    margin: 3rem auto;
+    padding: 3rem 2rem;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 响应式设计 */
+@media (max-width: 1900px) {
+
+    .converter,
+    .content-section,
+    .features-section,
+    .how-to-use,
+    .faq-section,
+    .cta-section,
+    .tool-description {
+        margin-left: 2rem;
+        margin-right: 2rem;
+        width: calc(100% - 4rem);
+    }
+}
+
+@media (max-width: 768px) {
+
+    .converter,
+    .content-section,
+    .features-section,
+    .how-to-use,
+    .faq-section,
+    .cta-section,
+    .tool-description {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        width: calc(100% - 2rem);
+        padding: 1.5rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.75rem;
+    }
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    .content-section section {
+        padding: 1.5rem;
+    }
+
+    .content-section h2 {
+        font-size: 1.75rem;
+    }
+
+    .content-section h3 {
+        font-size: 1.25rem;
+    }
+
+    .feature,
+    .faq-item {
+        padding: 1rem;
+    }
+}
